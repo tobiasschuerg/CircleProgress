@@ -20,7 +20,7 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.tobiasschuerg.progresscircle.CustomProgressBar
+    <com.tobiasschuerg.progresscircle.ProgressCircleView
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,12 +30,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:progressWidth="4dp"
+            app:thickness="4dp"
             app:radius="60dp"
             app:textSize="18sp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent">
 
-    </com.tobiasschuerg.progresscircle.CustomProgressBar>
+    </com.tobiasschuerg.progresscircle.ProgressCircleView>
 
 </android.support.constraint.ConstraintLayout>

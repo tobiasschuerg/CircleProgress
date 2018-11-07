@@ -20,25 +20,39 @@ import android.util.TypedValue
 import android.view.View
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class CustomProgressBar @JvmOverloads constructor(
+class ProgressCircleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr, defStyleRes) {
-    private val arcBackgroundPain: Paint
-    private val arcProgressPaint: Paint
-    private val textPaint: Paint
 
-    private val mTextBounds = Rect()
-    private val bounds = RectF()
+    private val arcBackgroundPain: Paint = Paint().apply {
+        isDither = true
+        style = Paint.Style.STROKE
+        isAntiAlias = true
+    }
+
+    private val arcProgressPaint: Paint = Paint().apply {
+        isDither = true
+        style = Paint.Style.STROKE
+        isAntiAlias = true
+    }
+
+    private val textPaint: Paint = Paint().apply {
+        isAntiAlias = true
+        style = Paint.Style.FILL
+        color = ContextCompat.getColor(context, android.R.color.black)
+        strokeWidth = 2f
+    }
+
+    private val textBounds = Rect()
+    private val circleBounds = RectF()
 
     private var centerX: Int = 0
     private var centerY: Int = 0
-    private var mWidthArcBG: Int = 0
-    private var mWidthAcrPrimary: Int = 0
-    private val mTextSizeProgress: Int
-    private val radius: Int
+
+    private var radius: Int = 40
 
     private var progress: Int = 75
     private var progressPercentage: Float = 0.75f
@@ -47,46 +61,28 @@ class CustomProgressBar @JvmOverloads constructor(
     init {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+
         val primaryColor: Int
         primaryColor = typedValue.data
+        arcBackgroundPain.color = primaryColor
+
         context.theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
         val accentColor = typedValue.data
+        arcProgressPaint.color = accentColor
 
-        context.theme.obtainStyledAttributes(attrs, R.styleable.CustomProgressBar, defStyleAttr, defStyleRes).apply {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.ProgressCircleView, defStyleAttr, defStyleRes).apply {
             try {
-                val progressWidth =
-                    getDimensionPixelSize(R.styleable.CustomProgressBar_progressWidth, 10) // FIXME: default
-                mTextSizeProgress = getDimensionPixelSize(R.styleable.CustomProgressBar_textSize, 10) // FIXME: default
-                radius = getDimensionPixelSize(R.styleable.CustomProgressBar_radius, 40) // FIXME: default
-                mWidthArcBG = progressWidth
-                mWidthAcrPrimary = progressWidth
+                val thickness: Float = getDimensionPixelSize(R.styleable.ProgressCircleView_thickness, 10).toFloat()
+                arcBackgroundPain.strokeWidth = thickness
+                arcProgressPaint.strokeWidth = thickness
+
+                val textSize = getDimensionPixelSize(R.styleable.ProgressCircleView_textSize, 10).toFloat()
+                textPaint.textSize = textSize
+
+                radius = getDimensionPixelSize(R.styleable.ProgressCircleView_radius, radius)
             } finally {
                 recycle()
             }
-        }
-
-        arcBackgroundPain = Paint().apply {
-            isDither = true
-            style = Paint.Style.STROKE
-            color = primaryColor
-            strokeWidth = mWidthArcBG.toFloat()
-            isAntiAlias = true
-        }
-
-        arcProgressPaint = Paint().apply {
-            isDither = true
-            style = Paint.Style.STROKE
-            color = accentColor
-            strokeWidth = mWidthAcrPrimary.toFloat()
-            isAntiAlias = true
-        }
-
-        textPaint = Paint().apply {
-            isAntiAlias = true
-            textSize = mTextSizeProgress.toFloat()
-            style = Paint.Style.FILL
-            color = ContextCompat.getColor(context, android.R.color.black)
-            strokeWidth = 2f
         }
     }
 
@@ -107,20 +103,20 @@ class CustomProgressBar @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val padding: Float = mWidthArcBG / 2f
-        bounds.set(canvas.clipBounds)
-        bounds.inset(padding, padding)
+        val padding: Float = arcBackgroundPain.strokeWidth / 2f
+        circleBounds.set(canvas.clipBounds)
+        circleBounds.inset(padding, padding)
 
-        canvas.drawArc(bounds, 270f, 360f, false, arcBackgroundPain)
-        canvas.drawArc(bounds, 270f, -(360f * progressPercentage), false, arcProgressPaint)
+        canvas.drawArc(circleBounds, 270f, 360f, false, arcBackgroundPain)
+        canvas.drawArc(circleBounds, 270f, -(360f * progressPercentage), false, arcProgressPaint)
 
         drawTextCentred(canvas)
     }
 
     private fun drawTextCentred(canvas: Canvas) {
         val text = getText(progress, progressMax, progressPercentage * 100)
-        textPaint.getTextBounds(text, 0, text.length, mTextBounds)
-        canvas.drawText(text, centerX - mTextBounds.exactCenterX(), centerY - mTextBounds.exactCenterY(), textPaint)
+        textPaint.getTextBounds(text, 0, text.length, textBounds)
+        canvas.drawText(text, centerX - textBounds.exactCenterX(), centerY - textBounds.exactCenterY(), textPaint)
     }
 
     var getText: (progress: Int, max: Int, percentage: Float) -> String = { _: Int, _: Int, percentage: Float ->

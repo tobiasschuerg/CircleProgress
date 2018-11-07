@@ -7,11 +7,11 @@ Circular progress *bar* for android.
 ### Setup
 
 ```
-<com.tobiasschuerg.progresscircle.CustomProgressBar
+<com.tobiasschuerg.progresscircle.ProgressCircleView
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:progressWidth="4dp"
+        app:thickness="4dp"
         app:radius="60dp"
         app:textSize="18sp"
         android:layout_marginTop="8dp"/>
