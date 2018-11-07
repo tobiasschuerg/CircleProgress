@@ -57,8 +57,6 @@ class CustomProgressBar @JvmOverloads constructor(
                 radius = getDimensionPixelSize(R.styleable.CustomProgressBar_radius, 40) // FIXME: default
                 mWidthArcBG = progressWidth
                 mWidthAcrPrimary = progressWidth
-
-
             } finally {
                 recycle()
             }
@@ -125,5 +123,4 @@ class CustomProgressBar @JvmOverloads constructor(
     var getText: (progress: Int, max: Int, percentage: Float) -> String = { _: Int, _: Int, percentage: Float ->
         percentage.toInt().toString() + "%"
     }
-
 }

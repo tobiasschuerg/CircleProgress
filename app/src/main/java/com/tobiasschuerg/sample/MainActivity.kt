@@ -3,8 +3,13 @@ package com.tobiasschuerg.sample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import kotlinx.android.synthetic.main.activity_main.progress
+import kotlinx.android.synthetic.main.activity_main.textView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,5 +41,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
