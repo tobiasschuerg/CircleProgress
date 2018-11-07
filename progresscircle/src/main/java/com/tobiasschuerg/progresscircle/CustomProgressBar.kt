@@ -122,7 +122,7 @@ class CustomProgressBar @JvmOverloads constructor(
         canvas.drawText(text, centerX - mTextBounds.exactCenterX(), centerY - mTextBounds.exactCenterY(), textPaint)
     }
 
-    var getText: (progress: Int, max: Int, percentage: Float) -> String = { progess: Int, max: Int, percentage: Float ->
+    var getText: (progress: Int, max: Int, percentage: Float) -> String = { _: Int, _: Int, percentage: Float ->
         percentage.toInt().toString() + "%"
     }
 
