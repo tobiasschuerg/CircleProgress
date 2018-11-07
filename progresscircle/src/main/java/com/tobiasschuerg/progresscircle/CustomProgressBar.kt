@@ -1,7 +1,10 @@
 package com.tobiasschuerg.progresscircle
 
 /**
- * Created by toanpc on 26/02/2017.
+ * Circular progress bar with centered text.
+ *
+ * Initially based on a blog post by NGUYEN VAN TOAN:
+ * https://techblog.vn/how-to-make-circle-custom-progress-bar-in-android
  */
 
 import android.content.Context

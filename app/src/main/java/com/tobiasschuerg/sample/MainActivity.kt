@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.progress
-import kotlinx.android.synthetic.main.activity_main.textView
+import kotlinx.android.synthetic.main.activity_main.reset_button
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        textView.setOnClickListener { resetProgress() }
+        reset_button.setOnClickListener { resetProgress() }
     }
 
     private fun resetProgress() {
