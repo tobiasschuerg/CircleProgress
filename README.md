@@ -1,6 +1,6 @@
 # CircleProgress
 
-Circular progress *bar* for android.
+Circular progress *bar* for android - with text inside.
 
 ![sample gif](sample_down.gif)
 
