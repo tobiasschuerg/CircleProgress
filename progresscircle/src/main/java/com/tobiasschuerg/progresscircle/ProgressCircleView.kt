@@ -60,13 +60,13 @@ class ProgressCircleView @JvmOverloads constructor(
 
     init {
         val typedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+        context.theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
 
         val primaryColor: Int
         primaryColor = typedValue.data
         arcBackgroundPain.color = primaryColor
 
-        context.theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
+        context.theme.resolveAttribute(android.R.attr.colorAccent, typedValue, true)
         val accentColor = typedValue.data
         arcProgressPaint.color = accentColor
 
