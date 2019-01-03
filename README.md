@@ -1,3 +1,7 @@
+[![Build Status](https://app.bitrise.io/app/d7ee707de84d8b4a/status.svg?token=x8J4C6rqpGMGRksDCoVhJw&branch=master)](https://app.bitrise.io/app/d7ee707de84d8b4a)
+[![](https://jitpack.io/v/tobiasschuerg/CircleProgress.svg)](https://jitpack.io/#tobiasschuerg/CircleProgress)
+
+
 # CircleProgress
 
 Circular progress *bar* for android - with text inside.
