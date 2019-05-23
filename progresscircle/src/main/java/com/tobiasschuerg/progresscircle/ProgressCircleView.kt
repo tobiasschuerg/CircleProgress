@@ -55,7 +55,6 @@ class ProgressCircleView @JvmOverloads constructor(
     private var radius: Int = 40
     private var clockwise: Boolean = false
 
-
     private var progress: Int = 75
     private var progressPercentage: Float = 0.75f
     var progressMax: Int = 100
@@ -68,7 +67,6 @@ class ProgressCircleView @JvmOverloads constructor(
 
         context.theme.resolveAttribute(android.R.attr.colorAccent, typedValue, true)
         var colorActive = typedValue.data
-
 
         context.theme.obtainStyledAttributes(attrs, R.styleable.ProgressCircleView, defStyleAttr, defStyleRes).apply {
             try {
