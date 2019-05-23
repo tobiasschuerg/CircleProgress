@@ -4,5 +4,8 @@
         <attr name="radius" format="dimension"/>
         <attr name="textSize" format="dimension"/>
         <attr name="thickness" format="dimension"/>
+        <attr name="clockwise" format="boolean"/>
+        <attr name="colorInactive" format="color"/>
+        <attr name="colorActive" format="color"/>
     </declare-styleable>
 </resources>

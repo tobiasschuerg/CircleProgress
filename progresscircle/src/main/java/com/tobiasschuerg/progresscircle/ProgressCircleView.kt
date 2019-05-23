@@ -13,11 +13,11 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class ProgressCircleView @JvmOverloads constructor(
@@ -53,6 +53,8 @@ class ProgressCircleView @JvmOverloads constructor(
     private var centerY: Int = 0
 
     private var radius: Int = 40
+    private var clockwise: Boolean = false
+
 
     private var progress: Int = 75
     private var progressPercentage: Float = 0.75f
@@ -60,15 +62,13 @@ class ProgressCircleView @JvmOverloads constructor(
 
     init {
         val typedValue = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
 
-        val primaryColor: Int
-        primaryColor = typedValue.data
-        arcBackgroundPain.color = primaryColor
+        context.theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
+        var colorInactive = typedValue.data
 
         context.theme.resolveAttribute(android.R.attr.colorAccent, typedValue, true)
-        val accentColor = typedValue.data
-        arcProgressPaint.color = accentColor
+        var colorActive = typedValue.data
+
 
         context.theme.obtainStyledAttributes(attrs, R.styleable.ProgressCircleView, defStyleAttr, defStyleRes).apply {
             try {
@@ -80,6 +80,12 @@ class ProgressCircleView @JvmOverloads constructor(
                 textPaint.textSize = textSize
 
                 radius = getDimensionPixelSize(R.styleable.ProgressCircleView_radius, radius)
+
+                clockwise = getBoolean(R.styleable.ProgressCircleView_clockwise, false)
+                colorInactive = getColor(R.styleable.ProgressCircleView_colorInactive, colorInactive)
+                arcBackgroundPain.color = colorInactive
+                colorActive = getColor(R.styleable.ProgressCircleView_colorActive, colorActive)
+                arcProgressPaint.color = colorActive
             } finally {
                 recycle()
             }
@@ -108,7 +114,12 @@ class ProgressCircleView @JvmOverloads constructor(
         circleBounds.inset(padding, padding)
 
         canvas.drawArc(circleBounds, 270f, 360f, false, arcBackgroundPain)
-        canvas.drawArc(circleBounds, 270f, -(360f * progressPercentage), false, arcProgressPaint)
+
+        val arcDegrees = when (clockwise) {
+            true -> (360f * progressPercentage)
+            false -> -(360f * progressPercentage)
+        }
+        canvas.drawArc(circleBounds, 270f, arcDegrees, false, arcProgressPaint)
 
         drawTextCentred(canvas)
     }

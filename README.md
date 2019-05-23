@@ -18,6 +18,9 @@ Circular progress *bar* for android - with text inside.
         app:thickness="4dp"
         app:radius="60dp"
         app:textSize="18sp"
+        app:clockwise="true"        // optional, defaults to false
+        app:colorActive="#0dd"      // optional defaults to colorPrimary
+        app:colorInactive="#eee"    // optional, defaults to colorAccent
         android:layout_marginTop="8dp"/>
 ```
 
